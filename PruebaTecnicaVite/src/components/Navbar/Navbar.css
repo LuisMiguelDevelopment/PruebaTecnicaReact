@@ -27,15 +27,11 @@
    
 }
 
-
-.header2{
-    background-color: rgba(65,65,65,255);
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    padding: 0 11rem;
+.header__h1{
     color: white;
 }
+
+
 
 @media screen and (max-width:760px) {
     .header{
@@ -50,8 +46,5 @@
         gap: 0rem;
         
     }
-    .header2{
-        justify-content: center;
-        
-    }
+    
 }
