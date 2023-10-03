@@ -6,6 +6,7 @@ const Series = () => {
   const [series, setSeries] = useState([]);
   const [modalAbrir, setModalAbrir] = useState(false);
   const [seleccionarSeries, setSeleccionarSeries] = useState(null);
+  const [loading , setLoading]=useState(true);
 
   useEffect(() => {
     const entrada = jsonData.entries;
@@ -18,7 +19,12 @@ const Series = () => {
       return a.title.localeCompare(b.title);
     })
 
-    setSeries(alfabetico)
+
+    setTimeout(()=>{
+      setSeries(alfabetico);
+      setLoading(false);
+    },2000)
+
 
   }, [])
 
@@ -33,22 +39,28 @@ const Series = () => {
 
   return (
     <div>
-      <div className="cards">
-        {series.map((entry) => (
-          <div onClick={() => clickCard(entry)} className='card' key={entry.title}>
-            <img className='card__img' src={entry.images["Poster Art"].url} alt="" />
-            <p className='card__p'>{entry.title}</p>
+      {loading ? ( 
+        <div className="loading-indicator">Loading...</div>
+      ) : (
+        <>
+          <div className="cards">
+            {series.map((entry) => (
+              <div onClick={() => clickCard(entry)} className='card' key={entry.title}>
+                <img className='card__img' src={entry.images["Poster Art"].url} alt="" />
+                <p className='card__p'>{entry.title}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      {modalAbrir && seleccionarSeries && (
-        <div className="modal">
-          <h2 className='modal__h2'>{seleccionarSeries.title}</h2>
-          <p className='modal__p'>{seleccionarSeries.description}</p>
-          <p className='modal__p'>{seleccionarSeries.releaseYear}</p>
-          <img className='card__img' src={seleccionarSeries.images["Poster Art"].url} alt="" />
-          <button className='card__butoon' onClick={() => cerrarModal()}>Salir</button>
-        </div>
+          {modalAbrir && seleccionarSeries && (
+            <div className="modal">
+              <h2 className='modal__h2'>{seleccionarSeries.title}</h2>
+              <p className='modal__p'>{seleccionarSeries.description}</p>
+              <p className='modal__p'>{seleccionarSeries.releaseYear}</p>
+              <img className='card__img' src={seleccionarSeries.images["Poster Art"].url} alt="" />
+              <button className='card__button' onClick={() => cerrarModal()}>Salir</button>
+            </div>
+          )}
+        </>
       )}
     </div>
   )
