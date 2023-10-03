@@ -1,6 +1,8 @@
 import './Series.css'
 import { useEffect, useState } from 'react';
 import jsonData from '../../../sample.json'
+import Popular from '../../components/Popular/Popular'
+
 
 const Series = () => {
   const [series, setSeries] = useState([]);
@@ -39,6 +41,7 @@ const Series = () => {
 
   return (
     <div>
+      <Popular title="Series"/>
       {loading ? ( 
         <div className="loading-indicator">Loading...</div>
       ) : (

@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import './Movies.css'
 import jsonData from '../../../sample.json'
+import Popular from '../../components/Popular/Popular'
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [modalAbrir, setModalAbrir] = useState(false);
   const [seleccionarMovies, setSeleccionarMovies] = useState(null);
+  const [loading , setLoading]=useState(true);
 
   useEffect(() => {
     const entrada = jsonData.entries;
@@ -17,7 +19,10 @@ const Movies = () => {
       return a.title.localeCompare(b.title);
      })
 
-    setMovies(alfabetico)
+    setTimeout(()=>{
+      setMovies(alfabetico);
+      setLoading(false);
+    },2000)
 
   }, [])
 
@@ -32,6 +37,11 @@ const Movies = () => {
 
   return (
     <div>
+       <Popular title="Movies"/>
+    {loading ? ( 
+      <div className="loading-indicator">Loading...</div>
+    ) : (
+      <>
       <div className="cards">
         {movies.map((entry) => (
           <div  onClick={() => clickCard(entry)} className='card' key={entry.title}>
@@ -50,7 +60,8 @@ const Movies = () => {
           <button className='card__butoon' onClick={() => cerrarModal()}>Salir</button>
         </div>
       )}
-
+      </>
+      )}
     </div>
   )
 }
