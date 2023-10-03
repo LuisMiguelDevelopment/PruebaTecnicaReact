@@ -3,22 +3,60 @@
     list-style: none;
     color: white;
 }
-
-.footer{
+.general2{
     background-color: rgba(65,65,65,255);
-    height: 10rem;
+    display: flex;
+    justify-content: center;
+    
+}
+.footer{
+    min-height: 100px;
+    width: 80%;
+    margin-top: 10px;
 }
 
-.footer__ul{
+
+.footer__ul,a,p{
     display: flex;
+    color: white;
 }
 
 .footer__redes--img{
     width: 40px;
     height: 40px;
+    margin: 0 10px;
 }
-
+.footer__li{
+    margin:0 10px;
+}
 .footer__app-img{
     margin: 10px;
     height: 40px;
+    width: 100px;
+}
+
+.footer__container-redesApp{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
+}
+
+
+@media screen and (max-width:813px) {
+    .footer__container-redesApp{
+        flex-direction: column;
+    }
+   
+    .footer__ul,a{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer__app{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    
 }

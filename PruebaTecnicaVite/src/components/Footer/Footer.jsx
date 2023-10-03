@@ -9,7 +9,7 @@ import microsoftStore from '../../assets/store/Windows-store.svg'
 
 const Footer = () => {
   return (
-    <div className='general'>
+    <div className='general2'>
       <div className="footer">
         <div className="footer__header">
           <ul className="footer__ul">

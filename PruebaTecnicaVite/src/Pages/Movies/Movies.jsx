@@ -7,23 +7,29 @@ const Movies = () => {
   const [modalAbrir, setModalAbrir] = useState(false);
   const [seleccionarMovies, setSeleccionarMovies] = useState(null);
   const [loading , setLoading]=useState(true);
+  const [error ,setError] = useState(null);
 
   useEffect(() => {
-    const entrada = jsonData.entries;
 
-    const filtrarMovies = entrada.filter((entry)=>{
-      return entry.programType =="movie" && entry.releaseYear >=2010
-    })
+    try {
+      const entrada = jsonData.entries;
 
-    const alfabetico = filtrarMovies.sort((a,b)=>{
-      return a.title.localeCompare(b.title);
-     })
+      const filtrarMovies = entrada.filter((entry)=>{
+        return entry.programType =="movie" && entry.releaseYear >=2010
+      })
+  
+      const alfabetico = filtrarMovies.sort((a,b)=>{
+        return a.title.localeCompare(b.title);
+       })
 
-    setTimeout(()=>{
-      setMovies(alfabetico);
-      setLoading(false);
-    },2000)
+       setTimeout(()=>{
+        setMovies(alfabetico);
+        setLoading(false);
+      },2000)
 
+    } catch (error) {
+      setError(error.message);
+    }
   }, [])
 
   const clickCard = (entry) => {
@@ -38,8 +44,12 @@ const Movies = () => {
   return (
     <div>
        <Popular title="Movies"/>
-    {loading ? ( 
-      <div className="loading-indicator">Loading...</div>
+    {
+    error ?(
+      <div className="errorr mensaje">Oops , something went  wrog</div>
+    ):  
+    loading ? ( 
+      <div className="loading-indicator mensaje">Loading...</div>
     ) : (
       <>
       <div className="cards">

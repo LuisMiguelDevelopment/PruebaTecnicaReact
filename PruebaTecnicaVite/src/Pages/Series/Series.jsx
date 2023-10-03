@@ -8,42 +8,50 @@ const Series = () => {
   const [series, setSeries] = useState([]);
   const [modalAbrir, setModalAbrir] = useState(false);
   const [seleccionarSeries, setSeleccionarSeries] = useState(null);
-  const [loading , setLoading]=useState(true);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const entrada = jsonData.entries;
 
-    const filtrarSeries = entrada.filter((entry) => {
-      return entry.programType === "series" && entry.releaseYear >= 2010
-    })
+    try {
+      const entrada = jsonData.entries;
 
-    const alfabetico = filtrarSeries.sort((a, b) => {
-      return a.title.localeCompare(b.title);
-    })
+      const filtrarSeries = entrada.filter((entry) => {
+        return entry.programType === "series" && entry.releaseYear >= 2010
+      })
 
-
-    setTimeout(()=>{
-      setSeries(alfabetico);
-      setLoading(false);
-    },2000)
+      const alfabetico = filtrarSeries.sort((a, b) => {
+        return a.title.localeCompare(b.title);
+      })
 
 
+      setTimeout(() => {
+        setSeries(alfabetico);
+        setLoading(false);
+      }, 2000)
+    } catch (error) {
+      setError(error.message);
+    }
   }, [])
 
   const clickCard = (entry) => {
     setSeleccionarSeries(entry);
-    setModalAbrir(true); 
+    setModalAbrir(true);
   }
 
-  const cerrarModal = () =>{
-    setModalAbrir(null); 
+  const cerrarModal = () => {
+    setModalAbrir(null);
   }
 
   return (
-    <div>
-      <Popular title="Series"/>
-      {loading ? ( 
-        <div className="loading-indicator">Loading...</div>
+    <div className='generall'>
+      <Popular title="Series" />
+      {
+      error ?(
+          <div className="errorr mensaje">Oops , something went  wrog</div>
+        ):  
+      loading ? (
+        <div className="loading-indicator mensaje">Loading...</div>
       ) : (
         <>
           <div className="cards">
